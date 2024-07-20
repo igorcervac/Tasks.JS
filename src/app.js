@@ -4,11 +4,11 @@ import { service } from "./local-storage-service.js"
 const tasks = service.getAll();
 tasks.forEach(renderTask);
 
-const taskForm = document.querySelector('form.task')! as HTMLFormElement;
+const taskForm = document.querySelector('form.task');
 taskForm.addEventListener('submit', onSubmit);
 
-function renderTask(task: Task){
-    const taskList = document.querySelector<HTMLUListElement>('ul.tasks');
+function renderTask(task){
+    const taskList = document.querySelector('ul.tasks');
 
     const spanElem = document.createElement('span');
     spanElem.innerText = task.description;
@@ -41,12 +41,12 @@ function renderTask(task: Task){
     });
 }
 
-function onSubmit(event: SubmitEvent){
+function onSubmit(event){
     event.preventDefault();
 
-    const descriptionElem = document.querySelector<HTMLInputElement>('input.task')!;
+    const descriptionElem = document.querySelector('input.task');
     if (descriptionElem.value){
-        const task = { id: 0, description: descriptionElem.value, done: false };
+        const task = new Task(0, descriptionElem.value, false);
         renderTask(task);
         service.create(task);
         taskForm.reset();
